@@ -17,6 +17,9 @@ function initializePage() {
 /*
  * Make an AJAX call to retrieve project details and add it in
  */
+
+
+
 function addProjectDetails(e) {
 	// Prevent following the link
 	e.preventDefault();
@@ -27,6 +30,7 @@ function addProjectDetails(e) {
 	var idNumber = projectID.substr('project'.length);
 
 	console.log("User clicked on project " + idNumber);
+	$.get("/project/" + idNumber ,cool);
 }
 
 /*
@@ -35,4 +39,24 @@ function addProjectDetails(e) {
  */
 function randomizeColors(e) {
 	console.log("User clicked on color button");
+}
+
+
+
+
+function cool(result)
+{
+
+	console.log(result);
+	var projectHTML = /*'<a href = "#" class = "thumbnail">' +*/
+	'<img src= " ' + result['image'] + '"class="detailsImage">' +
+	'<p>' + result['title'] + '</p>' +
+	'<p><small>' + result ['date'] + '</small></p></a>' + result['summary'];
+
+	//$("#project-container").html(projectHTML);
+	//$("#project-description").html(result['summary']);
+	//$('.details').html(projectHTML);
+
+	var details = $("#project" + result["id"] + " .details");
+	details.html(projectHTML);
 }
